@@ -1,7 +1,9 @@
 package com.entertainment.entertainment_api.resources.movies;
 
-import com.entertainment.entertainment_api.dtos.requests.movie.CreateMovieRequestImpl;
+import com.entertainment.entertainment_api.domain.Movie;
+import com.entertainment.entertainment_api.dtos.requests.movie.create.CreateMovieRequestImpl;
 import com.entertainment.entertainment_api.dtos.response.DefaultResponseImpl;
+import com.entertainment.entertainment_api.dtos.response.movie.list.ListMovieResponseImpl;
 import com.entertainment.entertainment_api.services.MovieService;
 import com.entertainment.entertainment_api.util.exceptions.ApiErro;
 import io.swagger.annotations.Api;
@@ -9,15 +11,13 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-
-import static com.entertainment.entertainment_api.util.exceptions.ExceptionMessages.RUNTIME_ERRO;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Api(
         tags = "Movies Resources",
@@ -32,7 +32,7 @@ public class MovieResource {
     private MovieService movieService;
 
     @ApiOperation(
-            value = "Creat Movie",
+            value = "Create Movie",
             response = DefaultResponseImpl.class
     )
     @ApiResponses(value = {
@@ -43,14 +43,37 @@ public class MovieResource {
             ),
             @ApiResponse(
                     code = 400,
-                    message = "Requisição má sucedida, o validador de CPF determinou que o Assciado não está apto para " +
-                            "executar um voto. | A seção de votação teve seu tempo expirado." +
-                            "| O Associado não pode votar mais de uma vez",
+                    message = "Requisição má sucedida.",
                     response = ApiErro.class
             )
     })
-    @PostMapping(path = "/createMovie")
+    @PostMapping(path = "/movies")
     public DefaultResponseImpl createMovie(@Valid @RequestBody CreateMovieRequestImpl body) {
         return movieService.inserir(body);
+    }
+
+    @ApiOperation(
+            value = "List Movie",
+            response = ListMovieResponseImpl.class
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    code = 200,
+                    message = "Requisição bem sucedida, retorna o status da requisição HTTP e uma mensagem de descrição",
+                    response = ListMovieResponseImpl.class
+            ),
+            @ApiResponse(
+                    code = 400,
+                    message = "Requisição má sucedida.",
+                    response = ApiErro.class
+            )
+    })
+    @GetMapping(path = "movies")
+    public ResponseEntity<List<Movie>> findAllMovies() {
+        try {
+            return new ResponseEntity<List<Movie>>(movieService.list(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<List<Movie>>(HttpStatus.BAD_REQUEST);
+        }
     }
 }

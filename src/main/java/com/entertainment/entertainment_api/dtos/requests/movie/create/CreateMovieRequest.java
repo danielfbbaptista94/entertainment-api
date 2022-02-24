@@ -1,4 +1,4 @@
-package com.entertainment.entertainment_api.dtos.requests.movie;
+package com.entertainment.entertainment_api.dtos.requests.movie.create;
 
 import io.swagger.annotations.ApiModelProperty;
 
@@ -26,4 +26,11 @@ public interface CreateMovieRequest {
             required = true
     )
     String getReleaseDate();
+
+    @ApiModelProperty(
+            name = "Duration.",
+            example = "Duration of the movie.",
+            required = true
+    )
+    String getDuration();
 }

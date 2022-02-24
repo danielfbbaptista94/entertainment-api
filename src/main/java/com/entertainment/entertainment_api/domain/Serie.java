@@ -8,14 +8,13 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.Objects;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "movies", schema = "entertainment")
-public class Movie implements Serializable {
+@Table(name = "series", schema = "entertainment")
+public class Serie implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -29,28 +28,16 @@ public class Movie implements Serializable {
     @Column(name = "sinopse", length = 1000)
     private String sinopse;
 
-    @Column(name = "duration")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "hh:mm:ss")
-    private LocalTime duration;
-
     @Column(name = "release_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate releaseDate;
 
-    public Movie() {}
+    public Serie() {}
 
-    public Movie(String title, String sinopse, LocalDate releaseDate) {
+    public Serie(String title, String sinopse, LocalDate releaseDate) {
         this.title = title;
         this.sinopse = sinopse;
-        this.releaseDate = releaseDate;
-    }
-
-    public Movie(Long id, String title, String sinopse, LocalTime duration, LocalDate releaseDate) {
-        this.id = id;
-        this.title = title;
-        this.sinopse = sinopse;
-        this.duration = duration;
         this.releaseDate = releaseDate;
     }
 
@@ -58,11 +45,8 @@ public class Movie implements Serializable {
     public boolean equals(Object o) {
         if (this == o) { return true; }
         if (o == null || getClass() != o.getClass()) { return false; }
-        Movie movie = (Movie) o;
-        return id.equals(movie.id) &&
-                title.equals(movie.title) &&
-                sinopse.equals(movie.sinopse) &&
-                releaseDate.equals(movie.releaseDate);
+        Serie serie = (Serie) o;
+        return Objects.equals(id, serie.id) && Objects.equals(title, serie.title) && Objects.equals(sinopse, serie.sinopse) && Objects.equals(releaseDate, serie.releaseDate);
     }
 
     @Override
@@ -72,7 +56,7 @@ public class Movie implements Serializable {
 
     @Override
     public String toString() {
-        return "Movie{" +
+        return "Serie{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", sinopse='" + sinopse + '\'' +

@@ -1,8 +1,9 @@
 package com.entertainment.entertainment_api.services;
 
 import com.entertainment.entertainment_api.domain.Movie;
-import com.entertainment.entertainment_api.dtos.requests.movie.CreateMovieRequestImpl;
+import com.entertainment.entertainment_api.dtos.requests.movie.create.CreateMovieRequestImpl;
 import com.entertainment.entertainment_api.dtos.response.DefaultResponseImpl;
+import com.entertainment.entertainment_api.dtos.response.movie.list.ListMovieResponseImpl;
 import com.entertainment.entertainment_api.repositories.IMovieRepository;
 import com.entertainment.entertainment_api.util.CalendarService;
 import com.entertainment.entertainment_api.util.JsonService;
@@ -10,6 +11,7 @@ import com.entertainment.entertainment_api.util.StatusCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Locale;
 
 @Service
@@ -29,7 +31,11 @@ public class MovieService {
 
         movieRepository.save(movie);
 
-        return mapToResponse(StatusCode.CREATED);
+        return mapToCreateResponse(StatusCode.CREATED);
+    }
+
+    public List<Movie> list() {
+        return movieRepository.findAll();
     }
 
     private Movie mapToMovie(CreateMovieRequestImpl body) {
@@ -40,7 +46,7 @@ public class MovieService {
         );
     }
 
-    private DefaultResponseImpl mapToResponse(StatusCode code){
+    private DefaultResponseImpl mapToCreateResponse(StatusCode code){
         return new DefaultResponseImpl(code.getCode(), code.getDescription());
     }
 }

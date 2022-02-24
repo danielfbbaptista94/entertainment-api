@@ -1,14 +1,13 @@
-package com.entertainment.entertainment_api.dtos.requests.movie;
+package com.entertainment.entertainment_api.dtos.requests.movie.create;
 
 import com.entertainment.entertainment_api.resources.movies.validators.CreateMovieValidator;
-
-import java.time.LocalDate;
 
 @CreateMovieValidator
 public class CreateMovieRequestImpl implements CreateMovieRequest {
     private String title;
     private String sinopse;
     private String releaseDate;
+    private String duration;
 
 
     @Override
@@ -26,6 +25,11 @@ public class CreateMovieRequestImpl implements CreateMovieRequest {
         return releaseDate;
     }
 
+    @Override
+    public String getDuration() {
+        return duration;
+    }
+
     public void setTitle(String title) {
         this.title = title;
     }
@@ -34,7 +38,7 @@ public class CreateMovieRequestImpl implements CreateMovieRequest {
         this.sinopse = sinopse;
     }
 
-    public void setReleaseDate(String releaseDate) {
-        this.releaseDate = releaseDate;
-    }
+    public void setReleaseDate(String releaseDate) { this.releaseDate = releaseDate; }
+
+    public void setDuration(String duration) { this.duration = duration; }
 }
