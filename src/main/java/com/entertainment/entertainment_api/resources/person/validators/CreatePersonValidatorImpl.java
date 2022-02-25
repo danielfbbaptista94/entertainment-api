@@ -1,6 +1,6 @@
-package com.entertainment.entertainment_api.resources.movies.validators;
+package com.entertainment.entertainment_api.resources.person.validators;
 
-import com.entertainment.entertainment_api.dtos.requests.movie.create.CreateMovieRequestImpl;
+import com.entertainment.entertainment_api.dtos.requests.person.create.CreatePersonRequestImpl;
 import com.entertainment.entertainment_api.util.JsonService;
 import com.entertainment.entertainment_api.util.ValidatorService;
 import com.entertainment.entertainment_api.util.exceptions.ApiErro;
@@ -12,8 +12,8 @@ import javax.validation.ConstraintValidatorContext;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreateMovieValidatorImpl
-        implements ConstraintValidator<CreateMovieValidator, CreateMovieRequestImpl> {
+public class CreatePersonValidatorImpl
+        implements ConstraintValidator<CreatePersonValidator, CreatePersonRequestImpl> {
 
     @Autowired
     private JsonService jsonService;
@@ -22,82 +22,72 @@ public class CreateMovieValidatorImpl
     private ValidatorService validatorService;
 
     @Override
-    public boolean isValid(CreateMovieRequestImpl requestBody, ConstraintValidatorContext constraintValidatorContext) {
+    public boolean isValid(CreatePersonRequestImpl requestBody, ConstraintValidatorContext constraintValidatorContext) {
 
         var sequential = 0;
         var badRequestCode = String.valueOf(HttpStatus.BAD_REQUEST.value());
         var message = "O campo obrigatório: ";
         List<ApiErro> errors = new ArrayList<>();
 
-        if (validatorService.verificarNullEmptyBlank(requestBody.getTitle())) {
+        if (validatorService.verificarNullEmptyBlank(requestBody.getFirstName())) {
             errors.add(
-                    new ApiErro.Builder(badRequestCode, message.concat("title"))
-                            .userHelp("Os Vingadores")
+                    new ApiErro.Builder(badRequestCode, message.concat("firstName"))
+                            .userHelp("Mc")
                             .sequential(String.valueOf(++sequential))
-                            .msgCorrelationId("title")
+                            .msgCorrelationId("firstName")
                             .category("MethodArgumentNotValidException")
                             .developerMessage("O campo da requisição é obrigatório.")
                             .build()
             );
         }
 
-        if (validatorService.verificarNullEmptyBlank(requestBody.getSinopse())) {
+        if (validatorService.verificarNullEmptyBlank(requestBody.getLastName())) {
             errors.add(
-                    new ApiErro.Builder(badRequestCode, message.concat("sinopse"))
-                            .userHelp("Descrição do filme")
+                    new ApiErro.Builder(badRequestCode, message.concat("lastName"))
+                            .userHelp("Burguer")
                             .sequential(String.valueOf(++sequential))
-                            .msgCorrelationId("sinopse")
+                            .msgCorrelationId("lastName")
                             .category("MethodArgumentNotValidException")
                             .developerMessage("O campo da requisição é obrigatório.")
                             .build()
             );
         }
 
-        if (validatorService.verificarNullEmptyBlank(requestBody.getReleaseDate())) {
+        if (validatorService.verificarNullEmptyBlank(requestBody.getBibliography())) {
             errors.add(
-                    new ApiErro.Builder(badRequestCode, message.concat("releaseDate"))
+                    new ApiErro.Builder(badRequestCode, message.concat("bibliography"))
+                            .userHelp("Write about the person, works, etc")
+                            .sequential(String.valueOf(++sequential))
+                            .msgCorrelationId("bibliography")
+                            .category("MethodArgumentNotValidException")
+                            .developerMessage("O campo da requisição é obrigatório.")
+                            .build()
+            );
+        }
+
+        if (validatorService.verificarNullEmptyBlank(requestBody.getBirthday())) {
+            errors.add(
+                    new ApiErro.Builder(badRequestCode, message.concat("birthday"))
                             .userHelp("yyyy-MM-dd")
                             .sequential(String.valueOf(++sequential))
-                            .msgCorrelationId("releaseDate")
+                            .msgCorrelationId("birthday")
                             .category("MethodArgumentNotValidException")
                             .developerMessage("O campo da requisição é obrigatório.")
                             .build()
             );
-        } else if (validatorService.verificarFormatoDate(requestBody.getReleaseDate())) {
+        } else if (validatorService.verificarFormatoDate(requestBody.getBirthday())) {
             errors.add(
                     new ApiErro.Builder(badRequestCode,
                             "Formato da data inválida.")
                             .userHelp("yyyy-MM-dd")
                             .sequential(String.valueOf(++sequential))
-                            .msgCorrelationId("releaseDate")
+                            .msgCorrelationId("birthday")
                             .category("MethodArgumentNotValidException")
                             .developerMessage("Formato inválido.")
                             .build()
             );
         }
 
-        if (validatorService.verificarNullEmptyBlank(requestBody.getDuration())) {
-            errors.add(
-                    new ApiErro.Builder(badRequestCode, message.concat("duration"))
-                            .userHelp("yyyy-MM-dd")
-                            .sequential(String.valueOf(++sequential))
-                            .msgCorrelationId("duration")
-                            .category("MethodArgumentNotValidException")
-                            .developerMessage("O campo da requisição é obrigatório.")
-                            .build()
-            );
-        } else if (validatorService.verificarFormatoHora(requestBody.getDuration())) {
-            errors.add(
-                    new ApiErro.Builder(badRequestCode,
-                            "Formato da hora inválida.")
-                            .userHelp("hh:mm:ss")
-                            .sequential(String.valueOf(++sequential))
-                            .msgCorrelationId("duration")
-                            .category("MethodArgumentNotValidException")
-                            .developerMessage("Formato inválido.")
-                            .build()
-            );
-        }
 
         errors.forEach(erroMessage -> {
             var strObj = jsonService.stringify(erroMessage);

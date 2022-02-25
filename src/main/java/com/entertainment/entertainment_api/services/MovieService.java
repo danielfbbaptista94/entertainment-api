@@ -28,21 +28,27 @@ public class MovieService {
 
     public DefaultResponseImpl inserir(CreateMovieRequestImpl body) {
         var movie = mapToMovie(body);
-
         movieRepository.save(movie);
 
         return mapToCreateResponse(StatusCode.CREATED);
     }
 
-    public List<Movie> list() {
-        return movieRepository.findAll();
+    public ListMovieResponseImpl listAll() {
+        var movies = movieRepository.findAll();
+        var response = new ListMovieResponseImpl();
+
+        response.setListMovie(movies);
+        response.setQuantidade(movies.size());
+
+        return response;
     }
 
     private Movie mapToMovie(CreateMovieRequestImpl body) {
         return new Movie(
                 body.getTitle().trim().toUpperCase(Locale.ROOT),
                 body.getSinopse().trim().toUpperCase(Locale.ROOT),
-                calendarService.parseFormatter(body.getReleaseDate())
+                calendarService.parseFormatterHour(body.getDuration()),
+                calendarService.parseFormatterDate(body.getReleaseDate())
         );
     }
 

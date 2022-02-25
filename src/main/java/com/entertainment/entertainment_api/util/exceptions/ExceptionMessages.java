@@ -41,6 +41,16 @@ public enum ExceptionMessages {
             "RunTimeExeption",
             "A API não encontrou um recurso necessário para a execução. Verificar com o administrador " +
                     "de dados se o recurso exsite na base."
+    ),
+
+    HOUR_CONVERSION_ERRO(
+            String.valueOf(HttpStatus.BAD_REQUEST),
+            "Failed to convert hour.", "0",
+            "Consultar a documentação em {dominio}/swagger-ui.html.",
+            "HOUR_CONVERSION_ERRO",
+            "RunTimeExeption",
+            "A API não encontrou um recurso necessário para a execução. Verificar com o administrador " +
+                    "de dados se o recurso exsite na base."
     );
 
 

@@ -1,12 +1,12 @@
-package com.entertainment.entertainment_api.dtos.response.movie.list;
+package com.entertainment.entertainment_api.dtos.response.person.list;
 
 
-import com.entertainment.entertainment_api.domain.Movie;
+import com.entertainment.entertainment_api.domain.Person;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.util.List;
 
-public interface ListMovieResponse {
+public interface ListPersonResponse {
     @ApiModelProperty(
             name = "Quantidade de Registros",
             notes = "quantidadeRegistros.",
@@ -24,5 +24,5 @@ public interface ListMovieResponse {
 //                    "\t\t\"releaseDate\": \"2012-04-27\"\n" +
 //                    "\t}"
 //    )
-    List<Movie> getMovies();
+    List<Person> getPersons();
 }

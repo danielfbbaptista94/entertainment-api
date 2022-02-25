@@ -1,10 +1,10 @@
-package com.entertainment.entertainment_api.resources.movies;
+package com.entertainment.entertainment_api.resources.person;
 
-import com.entertainment.entertainment_api.domain.Movie;
-import com.entertainment.entertainment_api.dtos.requests.movie.create.CreateMovieRequestImpl;
+import com.entertainment.entertainment_api.domain.Person;
+import com.entertainment.entertainment_api.dtos.requests.person.create.CreatePersonRequestImpl;
 import com.entertainment.entertainment_api.dtos.response.DefaultResponseImpl;
-import com.entertainment.entertainment_api.dtos.response.movie.list.ListMovieResponseImpl;
-import com.entertainment.entertainment_api.services.MovieService;
+import com.entertainment.entertainment_api.dtos.response.person.list.ListPersonResponseImpl;
+import com.entertainment.entertainment_api.services.PersonService;
 import com.entertainment.entertainment_api.util.exceptions.ApiErro;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -20,19 +20,19 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Api(
-        tags = "Movies Resources",
+        tags = "Persons Resources",
         produces = MediaType.APPLICATION_JSON_VALUE,
         consumes = MediaType.APPLICATION_JSON_VALUE
 )
 @RestController
 @CrossOrigin(origins = "*")
-public class MovieResource {
+public class PersonResource {
 
     @Autowired
-    private MovieService movieService;
+    private PersonService personService;
 
     @ApiOperation(
-            value = "Create Movie",
+            value = "Create Person",
             response = DefaultResponseImpl.class
     )
     @ApiResponses(value = {
@@ -47,20 +47,20 @@ public class MovieResource {
                     response = ApiErro.class
             )
     })
-    @PostMapping(path = "/movies")
-    public DefaultResponseImpl createMovie(@Valid @RequestBody CreateMovieRequestImpl body) {
-        return movieService.inserir(body);
+    @PostMapping(path = "/persons")
+    public DefaultResponseImpl createMovie(@Valid @RequestBody CreatePersonRequestImpl body) {
+        return personService.inserir(body);
     }
 
     @ApiOperation(
-            value = "List Movie",
-            response = ListMovieResponseImpl.class
+            value = "List Person",
+            response = ListPersonResponseImpl.class
     )
     @ApiResponses(value = {
             @ApiResponse(
                     code = 200,
                     message = "Requisição bem sucedida, retorna o status da requisição HTTP e uma mensagem de descrição",
-                    response = ListMovieResponseImpl.class
+                    response = ListPersonResponseImpl.class
             ),
             @ApiResponse(
                     code = 400,
@@ -68,12 +68,12 @@ public class MovieResource {
                     response = ApiErro.class
             )
     })
-    @GetMapping(path = "movies")
-    public ResponseEntity<ListMovieResponseImpl> findAllMovies() {
+    @GetMapping(path = "/persons")
+    public ResponseEntity<ListPersonResponseImpl> findAllMovies() {
         try {
-            return new ResponseEntity<ListMovieResponseImpl>(movieService.listAll(), HttpStatus.OK);
+            return new ResponseEntity<ListPersonResponseImpl>(personService.listAll(), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<ListMovieResponseImpl>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<ListPersonResponseImpl>(HttpStatus.BAD_REQUEST);
         }
     }
 }

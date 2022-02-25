@@ -1,43 +1,28 @@
 package com.entertainment.entertainment_api.dtos.response.movie.list;
 
-import com.entertainment.entertainment_api.dtos.response.DefaultResponse;
+import com.entertainment.entertainment_api.domain.Movie;
+
+import java.util.List;
 
 public class ListMovieResponseImpl implements ListMovieResponse {
-    private String title;
-    private String sinopse;
-    private String releaseDate;
-    private String duration;
-
+    private Integer quantidade;
+    private List<Movie> movies;
 
     @Override
-    public String getTitle() {
-        return title;
+    public Integer getQuantidade() {
+        return quantidade;
     }
 
     @Override
-    public String getSinopse() {
-        return sinopse;
+    public List<Movie> getMovies() {
+        return movies;
     }
 
-    @Override
-    public String getReleaseDate() {
-        return releaseDate;
+    public void setQuantidade(Integer quantidade) {
+        this.quantidade = quantidade;
     }
 
-    @Override
-    public String getDuration() {
-        return duration;
+    public void setListMovie(List<Movie> movies) {
+        this.movies = movies;
     }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setSinopse(String sinopse) {
-        this.sinopse = sinopse;
-    }
-
-    public void setReleaseDate(String releaseDate) { this.releaseDate = releaseDate; }
-
-    public void setDuration(String duration) { this.duration = duration; }
 }

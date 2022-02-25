@@ -8,14 +8,13 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.Objects;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "actors", schema = "entertainment")
-public class Actors implements Serializable {
+@Table(name = "persons", schema = "entertainment")
+public class Person implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -29,36 +28,47 @@ public class Actors implements Serializable {
     @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "description", length = 2000)
-    private String description;
+    @Column(name = "bibliography", length = 2000)
+    private String bibliography;
 
     @Column(name = "birthday")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate birthday;
 
-    public Actors() {}
+    public Person() {}
+
+    public Person(String firstName, String lastName, String bibliography, LocalDate birthday) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.bibliography = bibliography;
+        this.birthday = birthday;
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) { return true; }
         if (o == null || getClass() != o.getClass()) { return false; }
-        Actors actors = (Actors) o;
-        return Objects.equals(id, actors.id) && Objects.equals(firstName, actors.firstName) && Objects.equals(lastName, actors.lastName) && Objects.equals(description, actors.description) && Objects.equals(birthday, actors.birthday);
+        Person actors = (Person) o;
+        return Objects.equals(id, actors.id) &&
+                Objects.equals(firstName, actors.firstName) &&
+                Objects.equals(lastName, actors.lastName) &&
+                Objects.equals(bibliography, actors.bibliography) &&
+                Objects.equals(birthday, actors.birthday);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, description, birthday);
+        return Objects.hash(id, firstName, lastName, bibliography, birthday);
     }
 
     @Override
     public String toString() {
-        return "Actors{" +
+        return "Person{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", description='" + description + '\'' +
+                ", bibliography='" + bibliography + '\'' +
                 ", birthday=" + birthday +
                 '}';
     }

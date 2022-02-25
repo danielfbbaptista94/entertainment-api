@@ -30,7 +30,8 @@ public class Movie implements Serializable {
     private String sinopse;
 
     @Column(name = "duration")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "hh:mm:ss")
+    @DateTimeFormat(pattern = "HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
     private LocalTime duration;
 
     @Column(name = "release_date")
@@ -46,8 +47,7 @@ public class Movie implements Serializable {
         this.releaseDate = releaseDate;
     }
 
-    public Movie(Long id, String title, String sinopse, LocalTime duration, LocalDate releaseDate) {
-        this.id = id;
+    public Movie(String title, String sinopse, LocalTime duration, LocalDate releaseDate) {
         this.title = title;
         this.sinopse = sinopse;
         this.duration = duration;
