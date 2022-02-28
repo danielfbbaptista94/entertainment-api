@@ -1,6 +1,5 @@
 package com.entertainment.entertainment_api.resources.person;
 
-import com.entertainment.entertainment_api.domain.Person;
 import com.entertainment.entertainment_api.dtos.requests.person.create.CreatePersonRequestImpl;
 import com.entertainment.entertainment_api.dtos.response.DefaultResponseImpl;
 import com.entertainment.entertainment_api.dtos.response.person.list.ListPersonResponseImpl;
@@ -48,7 +47,7 @@ public class PersonResource {
             )
     })
     @PostMapping(path = "/persons")
-    public DefaultResponseImpl createMovie(@Valid @RequestBody CreatePersonRequestImpl body) {
+    public DefaultResponseImpl createPerson(@Valid @RequestBody CreatePersonRequestImpl body) {
         return personService.inserir(body);
     }
 
@@ -69,7 +68,7 @@ public class PersonResource {
             )
     })
     @GetMapping(path = "/persons")
-    public ResponseEntity<ListPersonResponseImpl> findAllMovies() {
+    public ResponseEntity<ListPersonResponseImpl> findAllPerson() {
         try {
             return new ResponseEntity<ListPersonResponseImpl>(personService.listAll(), HttpStatus.OK);
         } catch (Exception e) {

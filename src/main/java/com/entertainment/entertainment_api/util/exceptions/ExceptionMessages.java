@@ -17,7 +17,27 @@ public enum ExceptionMessages {
             String.valueOf(HttpStatus.NOT_FOUND.value()),
             "Movie not found", "0",
             "Consultar a documentação em {dominio}/swagger-ui.html.",
-            "NOT_FOUND",
+            "MOVIE_NOT_FOUND",
+            "RunTimeExeption",
+            "A API não encontrou um recurso necessário para a execução. Verificar com o administrador " +
+                    "de dados se o recurso exsite na base."
+    ),
+
+    SERIE_NOT_FOUND(
+            String.valueOf(HttpStatus.NOT_FOUND.value()),
+            "Serie not found", "0",
+            "Consultar a documentação em {dominio}/swagger-ui.html.",
+            "SERIE_NOT_FOUND",
+            "RunTimeExeption",
+            "A API não encontrou um recurso necessário para a execução. Verificar com o administrador " +
+                    "de dados se o recurso exsite na base."
+    ),
+
+    PERSON_NOT_FOUND(
+            String.valueOf(HttpStatus.NOT_FOUND.value()),
+            "Person not found", "0",
+            "Consultar a documentação em {dominio}/swagger-ui.html.",
+            "PERSON_NOT_FOUND",
             "RunTimeExeption",
             "A API não encontrou um recurso necessário para a execução. Verificar com o administrador " +
                     "de dados se o recurso exsite na base."

@@ -1,9 +1,9 @@
-package com.entertainment.entertainment_api.resources.movies;
+package com.entertainment.entertainment_api.resources.series;
 
-import com.entertainment.entertainment_api.dtos.requests.movie.create.CreateMovieRequestImpl;
+import com.entertainment.entertainment_api.dtos.requests.serie.create.CreateSerieRequestImpl;
 import com.entertainment.entertainment_api.dtos.response.DefaultResponseImpl;
-import com.entertainment.entertainment_api.dtos.response.movie.list.ListMovieResponseImpl;
-import com.entertainment.entertainment_api.services.MovieService;
+import com.entertainment.entertainment_api.dtos.response.serie.list.ListSerieResponseImpl;
+import com.entertainment.entertainment_api.services.SerieService;
 import com.entertainment.entertainment_api.util.exceptions.ApiErro;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -18,19 +18,19 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @Api(
-        tags = "Movies Resources",
+        tags = "Serie Resources",
         produces = MediaType.APPLICATION_JSON_VALUE,
         consumes = MediaType.APPLICATION_JSON_VALUE
 )
 @RestController
 @CrossOrigin(origins = "*")
-public class MovieResource {
+public class SerieResource {
 
     @Autowired
-    private MovieService movieService;
+    private SerieService serieService;
 
     @ApiOperation(
-            value = "Create Movie",
+            value = "Create Serie",
             response = DefaultResponseImpl.class
     )
     @ApiResponses(value = {
@@ -45,20 +45,20 @@ public class MovieResource {
                     response = ApiErro.class
             )
     })
-    @PostMapping(path = "/movies")
-    public DefaultResponseImpl createMovie(@Valid @RequestBody CreateMovieRequestImpl body) {
-        return movieService.inserir(body);
+    @PostMapping(path = "/series")
+    public DefaultResponseImpl createSerie(@Valid @RequestBody CreateSerieRequestImpl body) {
+        return serieService.inserir(body);
     }
 
     @ApiOperation(
-            value = "List Movie",
-            response = ListMovieResponseImpl.class
+            value = "List Series",
+            response = ListSerieResponseImpl.class
     )
     @ApiResponses(value = {
             @ApiResponse(
                     code = 200,
                     message = "Requisição bem sucedida, retorna o status da requisição HTTP e uma mensagem de descrição",
-                    response = ListMovieResponseImpl.class
+                    response = ListSerieResponseImpl.class
             ),
             @ApiResponse(
                     code = 400,
@@ -66,12 +66,12 @@ public class MovieResource {
                     response = ApiErro.class
             )
     })
-    @GetMapping(path = "movies")
-    public ResponseEntity<ListMovieResponseImpl> findAllMovies() {
+    @GetMapping(path = "/series")
+    public ResponseEntity<ListSerieResponseImpl> findAllSeries() {
         try {
-            return new ResponseEntity<ListMovieResponseImpl>(movieService.listAll(), HttpStatus.OK);
+            return new ResponseEntity<ListSerieResponseImpl>(serieService.listAll(), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<ListMovieResponseImpl>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<ListSerieResponseImpl>(HttpStatus.BAD_REQUEST);
         }
     }
 }

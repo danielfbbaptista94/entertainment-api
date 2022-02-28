@@ -43,6 +43,28 @@ public class CustomResourceExceptionHandler {
             error.getErros().add(erroBody);
         }
 
+        if (exception.getMessage().equals(SERIE_NOT_FOUND.getMsgCorrelationId())) {
+            var erroBody = new ApiErro(
+                    SERIE_NOT_FOUND.getCode(), SERIE_NOT_FOUND.getSequential(),
+                    SERIE_NOT_FOUND.getUserHelp(), SERIE_NOT_FOUND.getMessage(),
+                    SERIE_NOT_FOUND.getMsgCorrelationId(), SERIE_NOT_FOUND.getCategory(),
+                    SERIE_NOT_FOUND.getDeveloperMessage()
+            );
+
+            error.getErros().add(erroBody);
+        }
+
+        if (exception.getMessage().equals(PERSON_NOT_FOUND.getMsgCorrelationId())) {
+            var erroBody = new ApiErro(
+                    PERSON_NOT_FOUND.getCode(), PERSON_NOT_FOUND.getSequential(),
+                    PERSON_NOT_FOUND.getUserHelp(), PERSON_NOT_FOUND.getMessage(),
+                    PERSON_NOT_FOUND.getMsgCorrelationId(), PERSON_NOT_FOUND.getCategory(),
+                    PERSON_NOT_FOUND.getDeveloperMessage()
+            );
+
+            error.getErros().add(erroBody);
+        }
+
         if (exception.getMessage().equals(MOVIE_CONFLICT.getMsgCorrelationId())) {
             var erroBody = new ApiErro(
                     MOVIE_CONFLICT.getCode(), MOVIE_CONFLICT.getSequential(),

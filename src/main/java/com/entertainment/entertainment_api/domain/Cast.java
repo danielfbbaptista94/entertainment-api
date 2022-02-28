@@ -19,21 +19,29 @@ public class Cast implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "role")
+    private String role;
 
     @Column(name = "movie_id")
     private Movie movie;
+
+    @Column(name = "serie_id")
+    private Serie serie;
 
     @Column(name = "person_id")
     private Person person;
 
     public Cast() {}
 
-    public Cast(Long id, String name, Movie movie, Person person) {
-        this.id = id;
-        this.name = name;
+    public Cast(String role, Movie movie, Person person) {
+        this.role = role;
         this.movie = movie;
+        this.person = person;
+    }
+
+    public Cast(String name, Serie serie, Person person) {
+        this.role = role;
+        this.serie = serie;
         this.person = person;
     }
 
@@ -42,20 +50,21 @@ public class Cast implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Cast cast = (Cast) o;
-        return Objects.equals(id, cast.id) && Objects.equals(name, cast.name) && Objects.equals(movie, cast.movie) && Objects.equals(person, cast.person);
+        return Objects.equals(id, cast.id) && Objects.equals(role, cast.role) && Objects.equals(movie, cast.movie) && Objects.equals(serie, cast.serie) && Objects.equals(person, cast.person);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, movie, person);
+        return Objects.hash(id, role, movie, serie, person);
     }
 
     @Override
     public String toString() {
         return "Cast{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", role='" + role + '\'' +
                 ", movie=" + movie +
+                ", serie=" + serie +
                 ", person=" + person +
                 '}';
     }

@@ -11,7 +11,6 @@ import com.entertainment.entertainment_api.util.StatusCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Locale;
 
 @Service
